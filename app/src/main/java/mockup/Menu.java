@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Menu extends JPanel {
+public class Menu extends JPanel{
     protected Window window;
     protected Level level;
     Menu(Window window, Level level){
@@ -23,9 +23,11 @@ public class Menu extends JPanel {
         JButton buttonlevel = new JButton("Level");
         buttonlevel.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
-                window.setContentPane(level);
-                window.repaint();
-                window.revalidate();
+                // leave it be until level and game are implemented
+                // cause thats how game(loop) and level setup should be done
+                // Level1 level1 = new Level1();
+                // Game game = new Game(level1);
+                window.navTo(level);
 
             } 
         });

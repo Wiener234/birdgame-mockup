@@ -1,5 +1,4 @@
 package mockup;
-import java.awt.*;
 import javax.swing.*;
 
 public class Window extends JFrame {
@@ -15,6 +14,12 @@ public class Window extends JFrame {
 		setContentPane(menu);
         setVisible(true);
 	}
+
+    public void navTo(JPanel panel){
+        this.setContentPane(panel);
+        this.repaint();
+        this.revalidate();
+    }
 
 	
 }
