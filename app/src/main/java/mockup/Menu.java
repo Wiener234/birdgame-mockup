@@ -21,7 +21,7 @@ public class Menu extends JPanel{
         
 
         // JButton buttonlevel = new JButton("Level");
-        CustomButton buttonlevel = new CustomButton();
+        CustomButton buttonlevel = new CustomButton("Level");
         buttonlevel.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
                 // leave it be until level and game are implemented

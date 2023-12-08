@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,14 +17,19 @@ import javax.swing.JComponent;
 public class CustomButton extends JComponent implements MouseListener {
 
     private int WIDTH = 120;
-    private int HEIGHT = 80;
+    private int HEIGHT = 60;
     private int MAX_WIDTH;
     private int MAX_HEIGHT;
     private int MIN_WIDTH = 40;
     private int MIN_HEIGHT = 40;
     private ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
 
-    private String text = " ";
+    private Font font = new Font("TimesRoman", Font.BOLD, 20);
+
+    private boolean mouseEntered = false;
+
+
+    private String text = "";
     
     public CustomButton(){
         super();
@@ -52,16 +59,42 @@ public class CustomButton extends JComponent implements MouseListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.WHITE);
-        g.fillRect(0,0, this.WIDTH, this.HEIGHT);
+        Graphics2D antiAlias = (Graphics2D)g;
+        antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        
+        //draw outer part (trick: fill full button and draw inner parte above)
+        if(mouseEntered){
+            g.setColor(new Color(00,00,00,00));
+        }else{
+            g.setColor(Color.GRAY);
+        }
+        g.fillRoundRect(0,0, WIDTH, HEIGHT, 50,100);
+        if(mouseEntered){
+            g.setColor(Color.GREEN.darker().darker());
+        }else{
+            g.setColor(Color.GREEN.darker());
+        }
+        g.fillRoundRect(0,0, this.WIDTH-1, this.HEIGHT-5, 50, 100);
+        g.setColor(Color.GREEN.darker());
+        //inner part
+        g.fillRoundRect(1,5, WIDTH-1, HEIGHT-10, 50, 100);
         g.setColor(Color.BLACK);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        g.drawString(this.text, WIDTH/2, HEIGHT/2 + g.getFontMetrics().getHeight());
+        //Border
+        g.drawRoundRect(0,0, this.WIDTH-1, this.HEIGHT-5, 50, 100);
+        //Text
+        g.setFont(font);
+        g.drawString(this.text, 
+                WIDTH/2 - g.getFontMetrics(font).stringWidth(this.text)/2, 
+                HEIGHT/2 + g.getFontMetrics(font).getHeight()/4);
+
     }
 
     @Override
     public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
+        mouseEntered = false;
+        repaint();
 
     }
 
@@ -72,7 +105,8 @@ public class CustomButton extends JComponent implements MouseListener {
     }
     @Override
     public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
+        mouseEntered = true;
+        repaint();
 
     }
     @Override
