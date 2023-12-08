@@ -20,7 +20,8 @@ public class Menu extends JPanel{
 
         
 
-        JButton buttonlevel = new JButton("Level");
+        // JButton buttonlevel = new JButton("Level");
+        CustomButton buttonlevel = new CustomButton();
         buttonlevel.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
                 // leave it be until level and game are implemented
@@ -41,12 +42,12 @@ public class Menu extends JPanel{
         c.insets = new Insets(5, 100, 5, 5);
         c.fill = GridBagConstraints.RELATIVE;
         c.anchor = GridBagConstraints.WEST;
-        c.ipady  = 40;
-        c.ipadx = 120;
         c.weightx = 1;
         c.gridx = 0;
         c.gridy = 2;
         add(buttonlevel, c);
+        c.ipady  = 40;
+        c.ipadx = 120;
         c.weighty = 0;
         c.gridx = 0;
         c.gridy = 3;
