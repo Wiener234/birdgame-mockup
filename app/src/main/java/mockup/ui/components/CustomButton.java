@@ -139,7 +139,7 @@ public class CustomButton extends JComponent implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent arg0) {
-        notifyListeners(arg0);
+        performeAction(arg0);
 
     }
     @Override
@@ -159,19 +159,17 @@ public class CustomButton extends JComponent implements MouseListener {
 
     }
     public void addActionListener(ActionListener listener){
-        listeners.add(listener);
+        // listeners.add(listener);
+        listenerList.add(ActionListener.class, listener);
     }
-    
-    private void notifyListeners(MouseEvent e)
-    {
-        ActionEvent evt = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, new String(), e.getWhen(), e.getModifiers());
-        synchronized(listeners)
-        {
-            for (int i = 0; i < listeners.size(); i++)
-            {
-                ActionListener tmp = listeners.get(i);
-                tmp.actionPerformed(evt);
+
+    private void performeAction(MouseEvent e){
+        ActionListener[] listeners = listenerList.getListeners(ActionListener.class);
+        if (listeners != null) {
+            ActionEvent evt = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, new String()); 
+            for (ActionListener listener : listeners) {
+                listener.actionPerformed(evt);
             }
-        }
+        } 
     }
 }
