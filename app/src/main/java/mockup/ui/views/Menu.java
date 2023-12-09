@@ -1,4 +1,4 @@
-package mockup;
+package mockup.ui.views;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,10 +10,12 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import mockup.ui.components.CustomButton;
+
 public class Menu extends JPanel{
     protected Window window;
     protected Level level;
-    Menu(Window window, Level level){
+    public Menu(Window window, Level level){
         this.window = window;
         this.level = level;
         setLayout(new GridBagLayout());

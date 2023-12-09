@@ -1,4 +1,4 @@
-package mockup;
+package mockup.ui.views;
 
 
 import java.awt.Color;
@@ -13,8 +13,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import mockup.ui.components.CustomButton;
+
 public class Level extends JPanel{
-    Level(){
+    public Level(){
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 

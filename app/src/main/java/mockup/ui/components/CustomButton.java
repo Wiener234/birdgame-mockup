@@ -1,4 +1,4 @@
-package mockup;
+package mockup.ui.components;
 
 import java.awt.Color;
 import java.awt.Dimension;

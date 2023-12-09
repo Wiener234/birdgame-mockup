@@ -1,10 +1,10 @@
-package mockup;
+package mockup.ui.views;
 import javax.swing.*;
 
 public class Window extends JFrame {
     Level level = new Level();
     Menu menu = new Menu(this, level);
-	Window(){
+	public Window(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1280, 720);
         setResizable(false);
