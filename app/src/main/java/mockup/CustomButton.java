@@ -5,11 +5,15 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
@@ -18,8 +22,8 @@ public class CustomButton extends JComponent implements MouseListener {
 
     private int WIDTH = 120;
     private int HEIGHT = 60;
-    private int MAX_WIDTH;
-    private int MAX_HEIGHT;
+    private int MAX_WIDTH = 300;
+    private int MAX_HEIGHT = 300;
     private int MIN_WIDTH = 40;
     private int MIN_HEIGHT = 40;
     private ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
@@ -27,7 +31,10 @@ public class CustomButton extends JComponent implements MouseListener {
     private Font font = new Font("TimesRoman", Font.BOLD, 20);
 
     private boolean mouseEntered = false;
+    private boolean hasImage = false;
+    private boolean hasText = false;
 
+    private Image img;
 
     private String text = "";
     
@@ -42,6 +49,29 @@ public class CustomButton extends JComponent implements MouseListener {
         this.text = text;
         enableInputMethods(true);
         addMouseListener(this);
+        hasText = true;
+    }
+
+    public CustomButton(BufferedImage img){
+        super();
+        enableInputMethods(true);
+        addMouseListener(this);
+        int imgWIDTH = img.getWidth();
+        int imgHEIGHT = img.getHeight();
+        this.img = img.getScaledInstance(imgWIDTH,imgHEIGHT, Image.SCALE_SMOOTH);
+        hasImage = true;
+        WIDTH = imgWIDTH;
+        HEIGHT = imgHEIGHT;
+    }
+    
+    public CustomButton(BufferedImage img, int width, int height){
+        super();
+        enableInputMethods(true);
+        addMouseListener(this);
+        this.img = img.getScaledInstance(width,height, Image.SCALE_SMOOTH);
+        hasImage = true;
+        WIDTH = width;
+        HEIGHT = height;
     }
 
     @Override
@@ -63,32 +93,41 @@ public class CustomButton extends JComponent implements MouseListener {
         antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        
-        //draw outer part (trick: fill full button and draw inner parte above)
-        if(mouseEntered){
-            g.setColor(new Color(00,00,00,00));
-        }else{
-            g.setColor(Color.GRAY);
-        }
-        g.fillRoundRect(0,0, WIDTH, HEIGHT, 50,100);
-        if(mouseEntered){
-            g.setColor(Color.GREEN.darker().darker());
-        }else{
+        if(hasText){
+            //draw outer part (trick: fill full button and draw inner parte above)
+            if(mouseEntered){
+                g.setColor(new Color(00,00,00,00));
+            }else{
+                g.setColor(Color.GRAY);
+            }
+            g.fillRoundRect(0,0, WIDTH, HEIGHT, 50,100);
+            if(mouseEntered){
+                g.setColor(Color.GREEN.darker().darker());
+            }else{
+                g.setColor(Color.GREEN.darker());
+            }
+            g.fillRoundRect(0,0, this.WIDTH-1, this.HEIGHT-5, 50, 100);
             g.setColor(Color.GREEN.darker());
+            //inner part
+            g.fillRoundRect(1,5, WIDTH-1, HEIGHT-10, 50, 100);
+            g.setColor(Color.BLACK);
+            //Border
+            g.drawRoundRect(0,0, this.WIDTH-1, this.HEIGHT-5, 50, 100);
+            //Text
+            g.setFont(font);
+            g.drawString(this.text, 
+                    WIDTH/2 - g.getFontMetrics(font).stringWidth(this.text)/2, 
+                    HEIGHT/2 + g.getFontMetrics(font).getHeight()/4);
+        }else if(hasImage){
+            if(mouseEntered){
+                g.setColor(Color.RED);
+                g.fillRect(0,0,WIDTH, HEIGHT);
+                g.drawImage(img, 0,0, null);
+                
+            }else{
+                g.drawImage(img, 0,0, null);
+            }
         }
-        g.fillRoundRect(0,0, this.WIDTH-1, this.HEIGHT-5, 50, 100);
-        g.setColor(Color.GREEN.darker());
-        //inner part
-        g.fillRoundRect(1,5, WIDTH-1, HEIGHT-10, 50, 100);
-        g.setColor(Color.BLACK);
-        //Border
-        g.drawRoundRect(0,0, this.WIDTH-1, this.HEIGHT-5, 50, 100);
-        //Text
-        g.setFont(font);
-        g.drawString(this.text, 
-                WIDTH/2 - g.getFontMetrics(font).stringWidth(this.text)/2, 
-                HEIGHT/2 + g.getFontMetrics(font).getHeight()/4);
-
     }
 
     @Override

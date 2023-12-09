@@ -5,8 +5,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
-import javax.swing.JButton;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Menu extends JPanel{
@@ -20,7 +21,7 @@ public class Menu extends JPanel{
 
         
 
-        // JButton buttonlevel = new JButton("Level");
+        // CustomButton buttonlevel = new CustomButton("Level");
         CustomButton buttonlevel = new CustomButton("Level");
         buttonlevel.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
@@ -32,12 +33,19 @@ public class Menu extends JPanel{
 
             } 
         });
-        JButton manuel = new JButton("Manuel");
-        JButton highscore = new JButton("Highscore");
-        JButton credits = new JButton("Credits");
-        JButton sound = new JButton("Sound");
-        JButton music = new JButton("Music");
-        JButton logout = new JButton("Logout");
+        CustomButton manuel = new CustomButton("Manuel");
+        CustomButton highscore = new CustomButton("Highscore");
+        CustomButton credits = new CustomButton("Credits");
+        CustomButton sound = new CustomButton("Sound");
+        CustomButton music = new CustomButton("Music");
+        CustomButton logout = new CustomButton("Logout");
+        try {
+            BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("sound.png"));
+            music = new CustomButton(img);
+            sound = new CustomButton(img);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
 
         c.insets = new Insets(5, 100, 5, 5);
         c.fill = GridBagConstraints.RELATIVE;
@@ -46,9 +54,6 @@ public class Menu extends JPanel{
         c.gridx = 0;
         c.gridy = 2;
         add(buttonlevel, c);
-        c.ipady  = 40;
-        c.ipadx = 120;
-        c.weighty = 0;
         c.gridx = 0;
         c.gridy = 3;
         add(manuel, c);
@@ -63,8 +68,6 @@ public class Menu extends JPanel{
         c.gridx = 1;
         c.gridy = 6;
         add(logout, c);
-        c.ipadx = 10;
-        c.ipady = 10;
         c.weighty = 0;
         c.anchor = GridBagConstraints.NORTHEAST;
         c.gridx = 1;
