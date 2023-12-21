@@ -43,9 +43,9 @@ public class Menu extends JPanel{
         CustomButton logout = new CustomButton("Logout");
         try {
             BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("sound.png"));
-            music = new CustomButton(img);
+            sound = new CustomButton(img);
             img = ImageIO.read(getClass().getClassLoader().getResource("musik.png"));
-            sound = new CustomButton(img, 50, 50);
+            music = new CustomButton(img, 50, 50);
         } catch (Exception ex) {
             System.out.println(ex);
         }
