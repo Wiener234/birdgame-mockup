@@ -26,7 +26,6 @@ public class CustomButton extends JComponent implements MouseListener {
     private int MAX_HEIGHT = 300;
     private int MIN_WIDTH = 40;
     private int MIN_HEIGHT = 40;
-    private ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
 
     private Font font = new Font("TimesRoman", Font.BOLD, 20);
 
@@ -42,6 +41,16 @@ public class CustomButton extends JComponent implements MouseListener {
         super();
         enableInputMethods(true);
         addMouseListener(this);
+    }
+
+    public CustomButton(String text, int width, int height){
+        super();
+        this.text = text;
+        enableInputMethods(true);
+        addMouseListener(this);
+        hasText = true;
+        WIDTH = width;
+        HEIGHT = height;
     }
     
     public CustomButton(String text){
@@ -131,30 +140,30 @@ public class CustomButton extends JComponent implements MouseListener {
     }
 
     @Override
-    public void mouseExited(MouseEvent arg0) {
+    public void mouseExited(MouseEvent e) {
         mouseEntered = false;
         repaint();
 
     }
 
     @Override
-    public void mouseClicked(MouseEvent arg0) {
-        performeAction(arg0);
+    public void mouseClicked(MouseEvent e) {
+        performeAction(e);
 
     }
     @Override
-    public void mouseEntered(MouseEvent arg0) {
+    public void mouseEntered(MouseEvent e) {
         mouseEntered = true;
         repaint();
 
     }
     @Override
-    public void mousePressed(MouseEvent arg0) {
+    public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
 
     }
     @Override
-    public void mouseReleased(MouseEvent arg0) {
+    public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
 
     }

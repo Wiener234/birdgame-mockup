@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 import mockup.ui.components.CustomButton;
 
 public class Menu extends JPanel{
-    protected Window window;
-    protected Level level;
-    public Menu(Window window, Level level){
+    private Window window;
+    private Level level;
+    public Menu(Window window){
         this.window = window;
-        this.level = level;
+        this.level = new Level(window, this);
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -44,7 +44,8 @@ public class Menu extends JPanel{
         try {
             BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("sound.png"));
             music = new CustomButton(img);
-            sound = new CustomButton(img);
+            img = ImageIO.read(getClass().getClassLoader().getResource("musik.png"));
+            sound = new CustomButton(img, 50, 50);
         } catch (Exception ex) {
             System.out.println(ex);
         }
