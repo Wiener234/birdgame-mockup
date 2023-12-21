@@ -25,6 +25,7 @@ public class Level extends JPanel{
         CustomButton level1 = new CustomButton();
         CustomButton level2 = new CustomButton();
         CustomButton level3 = new CustomButton();
+        CustomButton back = new CustomButton("<--");
         try {
             BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("pol.png"));
             level1 = new CustomButton(img);
@@ -35,9 +36,31 @@ public class Level extends JPanel{
         }
 
         c.insets = new Insets(50, 50, 50, 50);
+        c.gridy=1;
+        c.gridx = 1;
+        c.weighty = 1;
+        c.weightx = 1;
+        c.anchor = GridBagConstraints.NORTHWEST;
         add(level1,c);
+        c.gridy=1;
+        c.gridx = 2;
+        c.weighty = 1;
+        c.weightx = 1;
+        c.anchor = GridBagConstraints.NORTHWEST;
         add(level2,c);
+        c.gridy=1;
+        c.gridx = 3;
+        c.weighty = 1;
+        c.weightx = 1;
+        c.anchor = GridBagConstraints.NORTHWEST;
         add(level3,c);
+        c.insets = new Insets(10,10,10,10);
+        c.weightx = .5;
+        c.weighty = .5;
+        c.anchor = GridBagConstraints.NORTHWEST;
+        c.gridy=0;
+        c.gridx = 0;
+        add(back, c);
        
         
     }
